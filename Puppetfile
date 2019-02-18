@@ -15,3 +15,10 @@ forge 'https://forge.puppet.com'
 #mod 'apache',
 #  :git    => 'https://github.com/puppetlabs/puppetlabs-apache',
 #  :branch => 'docs_experiment'
+
+
+# moduler som er nødvendige
+# mod 'otherskins-ansible', '2.0.2'
+# mod 'puppetlabs-docker', '3.3.0'
+# mod 'puppetlabs-ntp', '7.4.0'
+# mod 'saz-timezone', '5.1.1'
