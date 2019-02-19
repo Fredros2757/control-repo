@@ -35,7 +35,7 @@ class profile::base {
   # docker latest
   class { 'docker':
     version => 'latest',
-    before  => File['docker config folder'],
+    before  => File['/etc/systemd/system/docker.service.d'],
   }
 
   # ntp
@@ -48,19 +48,19 @@ class profile::base {
   }
 
   # mkdir -p /etc/systemd/system/docker.service.d
-  file { 'docker config folder':
+  file { '/etc/systemd/system/docker.service.d':
     ensure => directory,
     path   => '/etc/systemd/system/docker.service.d',
     replace => 'no',
   }
 
   # tee /etc/systemd/system/docker.service.d/kolla.conf >> [Service] MountFlags=shared
-  file { 'docker config file':
+  file { '/etc/systemd/system/docker.service.d/kolla.conf':
     ensure => file,
     path => '/etc/systemd/system/docker.service.d/kolla.conf',
     replace => 'no',
     content => "[Service]\n MountFlags=shared",
-    require => File['docker config folder'],  
+    require => File['/etc/systemd/system/docker.service.d'],  
   }
 
   # TODO: systemctl daemon-reload systemctl restart docker
