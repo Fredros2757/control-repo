@@ -1,2 +1,52 @@
 ---
 message: "This node is using common data"
+ansible_config: |+
+ [defaults]
+ host_key_checking=False
+ pipelining=True
+ forks=100
+ inventory=/root/multinode.ini
+ sudo_user=root
+ remote_port=22
+ gathering=smart
+ deprecation_warnings = False
+globals_config: |+
+ kolla_base_distro: "ubuntu"
+ Valid options are [ binary, source ]
+ kolla_install_type: "source"
+ openstack_release: "master"
+ kolla_internal_vip_address: "192.168.51.208"
+ network_interface: "ens3"
+ enable_haproxy: "no"
+ glance_enable_rolling_upgrade: "no"
+ # Valid options are [ fernet ]
+ keystone_token_provider: "fernet"
+ keystone_admin_user: "admin"
+ keystone_admin_project: "admin"
+multinode_config: |+
+ [control]
+ Keystone (fyll inn ip eller hostname manuelt)
+ hkeystone ansible_ssh_user=ubuntu ansible_become=True ansible_private_key_file=/home/ubuntu/.ssh/bachelor.pem
+ [network]
+ # nova (fyll inn ip eller hostname)
+ hnova ansible_ssh_user=ubuntu ansible_become=True ansible_private_key_file=/home/ubuntu/.ssh/bachelor.pem
+ [deployment]
+ #ansible_host=192.168.51.*
+ #ansible_host:=192.168.51.*
+ [baremetal:children]
+ control
+ network
+ [baremetal:vars]
+ ansible_ssh_user=ubuntu
+ ansible_ssh_private_key=/home/ubuntu/.ssh/bachelor.pem
+ ansible_become=True
+ [bifrost:children]
+ deployment
+ [keystone:children]
+ control
+ [rabbitmq:children]
+ control
+ [memcached:children]
+ control
+ [mariadb:children]
+ control

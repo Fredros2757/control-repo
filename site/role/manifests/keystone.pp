@@ -1,4 +1,4 @@
-class role::database_server {
+class role::keystone {
 
   #All roles should include the base profile
   include profile::base

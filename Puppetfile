@@ -18,7 +18,17 @@ mod 'puppetlabs/concat',      '4.2.1'
 
 
 # moduler som er nødvendige
-mod 'otherskins-ansible', '2.0.2'
-mod 'puppetlabs-docker', '3.3.0'
-mod 'puppetlabs-ntp', '7.4.0'
-mod 'saz-timezone', '5.1.1'
+mod 'otherskins-ansible',     '2.0.2'
+mod 'puppetlabs-docker',      '3.3.0'
+mod 'puppetlabs-ntp',         '7.4.0'
+mod 'saz-timezone',           '5.1.1'
+mod 'tracywebtech-pip',       '1.3.4'
+mod 'puppetlabs-translate',   '1.1.0'
+mod 'puppetlabs-apt',         '4.5.1'
+mod 'puppetlabs-powershell',  '2.2.0'
+mod 'puppetlabs-reboot',      '2.1.2'
+mod 'stm-debconf',            '2.3.0'
+mod 'puppet-python',          '2.2.2'
+mod 'puppetlabs-vcsrepo',     '2.4.0'
+
+
