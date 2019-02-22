@@ -30,5 +30,4 @@ mod 'puppetlabs-reboot',      '2.1.2'
 mod 'stm-debconf',            '2.3.0'
 mod 'puppet-python',          '2.2.2'
 mod 'puppetlabs-vcsrepo',     '2.4.0'
-
-
+mod 'puppet-ssh_keygen',      '3.0.1'

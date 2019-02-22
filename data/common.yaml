@@ -1,6 +1,15 @@
 ---
 message: "This node is using common data"
 ansible_config: |+
+ [inventory]
+ [privilege_escalation]
+ [paramiko_connection]
+ [ssh_connection]
+ [persistent_connection]
+ [accelerate]
+ [selinux]
+ [colors]
+ [diff]
  [defaults]
  host_key_checking=False
  pipelining=True
@@ -10,43 +19,63 @@ ansible_config: |+
  remote_port=22
  gathering=smart
  deprecation_warnings = False
+
 globals_config: |+
- kolla_base_distro: "ubuntu"
- Valid options are [ binary, source ]
+ glance_enable_rolling_upgrade: "no"
+ ironic_dnsmasq_dhcp_range:
+ tempest_image_id:
+ tempest_flavor_ref_id:
+ tempest_public_network_id:
+ tempest_floating_network_name:
+ kolla_base_distro: "centos"
  kolla_install_type: "source"
  openstack_release: "master"
- kolla_internal_vip_address: "192.168.51.208"
+ kolla_internal_vip_address: "192.168.51.204"
  network_interface: "ens3"
  enable_haproxy: "no"
  glance_enable_rolling_upgrade: "no"
- # Valid options are [ fernet ]
- keystone_token_provider: "fernet"
+ keystone_token_provider: 'fernet'
  keystone_admin_user: "admin"
  keystone_admin_project: "admin"
-multinode_config: |+
+ enable_mariadb: "no"
+ database_address: "fnova"
+ use_preconfigured_databases: "yes"
+ keystone_database_user: "admin"
+ use_common_mariadb_user: "yes"
+ database_user: "admin"
+multinode_config: |+ 
  [control]
- Keystone (fyll inn ip eller hostname manuelt)
- hkeystone ansible_ssh_user=ubuntu ansible_become=True ansible_private_key_file=/home/ubuntu/.ssh/bachelor.pem
- [network]
- # nova (fyll inn ip eller hostname)
- hnova ansible_ssh_user=ubuntu ansible_become=True ansible_private_key_file=/home/ubuntu/.ssh/bachelor.pem
- [deployment]
+ # Keystone (fyll inn ip eller hostname manuelt)
+ hkeystone ansible_ssh_user=ubuntu ansible_become=True ansible_private_key_file=/root/.ssh/ssh_host_rsa_key
+ #[network]
+ #192.168.51.201 ansible_ssh_user=ubuntu ansible_become=True ansible_private_key_file=/home/ubuntu/.ssh/endaenkey
+ 
+ #[deployment]
  #ansible_host=192.168.51.*
  #ansible_host:=192.168.51.*
+ 
  [baremetal:children]
  control
- network
+ 
  [baremetal:vars]
  ansible_ssh_user=ubuntu
- ansible_ssh_private_key=/home/ubuntu/.ssh/bachelor.pem
+ ansible_ssh_private_key=/root/.ssh/ssh_host_rsa_key
  ansible_become=True
- [bifrost:children]
- deployment
+ 
+ #[bifrost:children]
+ #deployment
+ 
  [keystone:children]
  control
+ 
  [rabbitmq:children]
  control
+ 
  [memcached:children]
  control
- [mariadb:children]
- control
+ 
+ #[mariadb:children]
+ #control
+ [mariadb]
+ fnova ansible_ssh_user=ubuntu ansible_become=True ansible_private_key_file=/root/.ssh/ssh_host_rsa_key
+ssh_pub: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDX33hq28oTZliFTWAK64bto/z7u/JR8UBsApsZv4nJ+RmGRFx1AHlR9XaoalB/UtzR+7MCc8SqwvYY7JPD6hxSNbSAPuUZhY53mILRceuvzHWLz5RVxCrSrViLGgwhZlI4R2yu32HubPGtox2rEJR4NeAR20SPGzTYKgyEbNe+i/Bro3V3KHjPhsmFLLnGgdmCQC2kWVciSiHySEdJpXY8A1HEodfP1cIdnqCyKXlZ5dP1SzGyep7k9GeCEQiPAwfSBRmOU+iclTt9eH7t8PfEfnIsDMtbwsrf4gOpJX9Fdj3HNH8nJwQi8D83k9dw0JCy+F5SUxuqv6BJM49obpXJ root@hmanager'

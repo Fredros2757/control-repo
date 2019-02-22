@@ -1,4 +1,7 @@
-class profile::keystone {
+class role::keystone {
 
-  # this manifests is only for manager node
+  #All roles should include the base profile
+  include profile::base
+  include profile::keystone
+
 }

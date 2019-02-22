@@ -1,7 +1,7 @@
 class role::keystone {
 
-  #All roles should include the base profile
-  include profile::base
+  # Role class for keystone node
+  include profile::base_config
   include profile::keystone
 
 }
