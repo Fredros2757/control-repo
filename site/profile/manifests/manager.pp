@@ -25,7 +25,7 @@ class profile::manager {
    
    python::pip { 'kolla-ansible':
      ensure   => 'latest',
-     before   => File['kolla', 'inventory', '/root/kolla-ansible/etc/kolla'],
+     before   => File['kolla', 'inventory', '/root/kolla-ansible/etc/kolla', '/etc/kolla/globals.yml'],
    }
    
    # copying some folders
@@ -34,6 +34,7 @@ class profile::manager {
     source   => '/usr/local/share/kolla-ansible/etc_examples/kolla',
     recurse  => 'remote',
     path     => '/etc/',
+    before   => File['/etc/kolla/globals.yml'],
   }
   
   file {'inventory':
