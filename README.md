@@ -117,3 +117,18 @@ If you use Puppet Enterprise and have not yet enabled and configured Code Manage
 
 * <https://github.com/Puppet-RampUpProgram/control-repo>
 
+### Commandoer gjort utenom Puppet for å deploye Kolla-ansible
+kolla-genpwd
+kolla-ansible -i multinode.ini prechecks, deploy, check, post-deploy
+
+### DB
+Forventer pre-configured db.
+Endre tekstformat til utf-8.
+Legg passord for db i /etc/kolla/passwords.yml med disse tre linjene
+database_password: 
+keystone_admin_password:
+keystone_database_password: 
+
+
+
+
