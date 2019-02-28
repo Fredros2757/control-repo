@@ -41,6 +41,8 @@ class profile::base {
     replace => 'no',
     content => "[Service]\n MountFlags=shared",
   }
-
-  # TODO: systemctl daemon-reload systemctl restart docker
+  
+  package {'mariadb-client-core-10.1':
+     ensure    => present,
+  }
 }

@@ -25,7 +25,7 @@ class profile::manager {
    
    python::pip { 'kolla-ansible':
      ensure   => 'latest',
-     before   => File['kolla', 'inventory', '/root/kolla-ansible/etc/kolla', '/etc/kolla/globals.yml'],
+     before   => File['kolla', 'inventory', '/root/kolla-ansible/etc/kolla'],
    }
    
    # copying some folders
@@ -34,7 +34,6 @@ class profile::manager {
     source   => '/usr/local/share/kolla-ansible/etc_examples/kolla',
     recurse  => 'remote',
     path     => '/etc/',
-    before   => File['/etc/kolla/globals.yml'],
   }
   
   file {'inventory':
@@ -117,7 +116,4 @@ class profile::manager {
      onlyif    => 'which kolla-ansible',
   }
 
-  package {'mariadb-client-core-10.1':
-     ensure    => present,
-  }
 }
